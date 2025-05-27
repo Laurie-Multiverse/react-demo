@@ -1,4 +1,5 @@
 import './App.css'
+import ListItem from './components/ListItem'
 
 function App() {
   const data = [
@@ -20,15 +21,7 @@ function App() {
     <>
       <ol>
         {
-          data.map(task => (
-            <>
-              <li>
-                <h2>{task.title}</h2>
-                <p>Description: {task.description}</p>
-                <p>Time: {task.time}</p>
-              </li>
-            </>
-          ))
+          data.map(task => <ListItem task={task} />)
         }
       </ol>
     </>
