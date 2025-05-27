@@ -1,5 +1,4 @@
-function ListItem(props) {
-    const task = props.task;
+function ListItem({ task }) {
 
     return (
         <>
