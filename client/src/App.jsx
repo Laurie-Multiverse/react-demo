@@ -1,5 +1,6 @@
 import './App.css'
 import ListItem from './components/ListItem'
+import { useState } from 'react';
 
 function App() {
   const data = [
@@ -20,13 +21,29 @@ function App() {
       time: "9am",
     },
   ]
+
+  // set up a state that shows whether or not the tasks are currently visible
+  // const array = useState(true);
+  // const isVisible = array[0];
+  // const setIsVisible = array[1];
+  // ... we can do array destructuring instead:
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
     <>
-      <ol>
-        {
-          data.map(task => <ListItem key={task.id} task={task} />)
-        }
-      </ol>
+      <button onClick={() => setIsVisible(!isVisible)}>
+        {isVisible ? "Hide task list" : "Show task list"}
+      </button>
+      {
+        isVisible && (
+          <ol>
+            {
+              data.map(task => <ListItem key={task.id} task={task} />)
+            }
+          </ol>
+        )
+      }
+
     </>
   )
 
