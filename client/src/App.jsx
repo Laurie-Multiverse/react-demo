@@ -30,6 +30,10 @@ function App() {
   // ... we can do array destructuring instead:
   const [isVisible, setIsVisible] = useState(true);
 
+  function addTask(task) {
+    setTaskList([...taskList, task]);
+  }
+
   return (
     <>
       <button onClick={() => setIsVisible(!isVisible)}>
@@ -44,7 +48,7 @@ function App() {
           </ol>
         )
       }
-      <Form taskList={taskList} setTaskList={setTaskList}/>
+      <Form addTask={addTask}/>
     </>
   )
 

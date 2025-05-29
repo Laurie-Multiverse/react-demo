@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Form({ taskList, setTaskList }) {
+function Form({ addTask }) {
 //   const [title, setTitle] = useState("");
 //   const [description, setDescription] = useState("");
 //   const [time, setTime] = useState("");
@@ -13,7 +13,7 @@ function Form({ taskList, setTaskList }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    setTaskList([...taskList, task]);
+    addTask(task);
   }
 
   return (
