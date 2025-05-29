@@ -1,9 +1,10 @@
 import './App.css'
 import ListItem from './components/ListItem'
+import Form from './components/Form'
 import { useState } from 'react';
 
 function App() {
-  const data = [
+  const [taskList, setTaskList] = useState([
     {
       id: 1,
       title: "have breakfast",
@@ -20,14 +21,14 @@ function App() {
       description: "Log onto machine and open all relevant software",
       time: "9am",
     },
-  ]
+  ]);
 
   // set up a state that shows whether or not the tasks are currently visible
   // const array = useState(true);
   // const isVisible = array[0];
   // const setIsVisible = array[1];
   // ... we can do array destructuring instead:
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   return (
     <>
@@ -38,12 +39,12 @@ function App() {
         isVisible && (
           <ol>
             {
-              data.map(task => <ListItem key={task.id} task={task} />)
+              taskList.map(task => <ListItem key={task.id} task={task} />)
             }
           </ol>
         )
       }
-
+      <Form taskList={taskList} setTaskList={setTaskList}/>
     </>
   )
 
