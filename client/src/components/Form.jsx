@@ -1,14 +1,19 @@
 import { useState } from "react";
 
 function Form({ taskList, setTaskList }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [time, setTime] = useState("");
+//   const [title, setTitle] = useState("");
+//   const [description, setDescription] = useState("");
+//   const [time, setTime] = useState("");
+  const [task, setTask] = useState({
+    title: "",
+    description: "",
+    time: ""
+  })
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    setTaskList([...taskList, { title, description, time }]);
+    setTaskList([...taskList, task]);
   }
 
   return (
@@ -16,20 +21,20 @@ function Form({ taskList, setTaskList }) {
       <input
         type="text"
         placeholder="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={task.title}
+        onChange={(e) => setTask({...task, title: e.target.value})}
       />
       <input
         type="text"
         placeholder="description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        value={task.description}
+        onChange={(e) => setTask({...task, description: e.target.value})}
       />
       <input
         type="text"
         placeholder="time"
-        value={time}
-        onChange={(e) => setTime(e.target.value)}
+        value={task.time}
+        onChange={(e) => setTask({...task, time: e.target.value})}
       />
       <button type="submit" onClick={handleSubmit}>
         Add Task
