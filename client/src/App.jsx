@@ -1,27 +1,10 @@
 import './App.css'
 import ListItem from './components/ListItem'
 import Form from './components/Form'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [taskList, setTaskList] = useState([
-    {
-      id: 1,
-      title: "have breakfast",
-      description: "2 eggs on toast",
-      time: "7 am"
-    }, {
-      id: 2,
-      title: "Cardio",
-      description: "Jog 5km",
-      time: "8 am",
-    }, {
-      id: 3,
-      title: "Start Work",
-      description: "Log onto machine and open all relevant software",
-      time: "9am",
-    },
-  ]);
+  const [taskList, setTaskList] = useState([]);
 
   // set up a state that shows whether or not the tasks are currently visible
   // const array = useState(true);
@@ -29,10 +12,27 @@ function App() {
   // const setIsVisible = array[1];
   // ... we can do array destructuring instead:
   const [isVisible, setIsVisible] = useState(true);
+  const [newPost, setNewPost] = useState(false);
 
-  function addTask(task) {
-    setTaskList([...taskList, task]);
+  async function addTask(task) {    
+    const response = await fetch('http://localhost:3000/todos', {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(task)
+    })
+    setNewPost(true);
   }
+
+  async function fetchTasks() {
+    const response = await fetch('http://localhost:3000/todos')
+    const data = await response.json();
+    setTaskList(data);
+  }
+
+  useEffect( () => {
+    fetchTasks();
+    setNewPost(false);
+  }, [newPost])
 
   return (
     <>

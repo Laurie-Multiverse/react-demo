@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Meeting with John",
+    "description": "Discussing project details",
+    "time": "10:00 AM"
+  },
+  {
+    "title": "Lunch with Sarah",
+    "description": "Trying out the new Italian restaurant",
+    "time": "12:30 PM"
+  },
+  {
+    "title": "Phone call with Client",
+    "description": "Going over project proposal",
+    "time": "2:00 PM"
+  },
+  {
+    "title": "Team meeting",
+    "description": "Discussing progress and next steps",
+    "time": "3:30 PM"
+  }
+]
