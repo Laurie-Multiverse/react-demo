@@ -1,7 +1,7 @@
-import './App.css'
-import ListItem from './components/ListItem'
-import Form from './components/Form'
-import { useState, useEffect } from 'react';
+import "./App.css";
+import ListItem from "./components/ListItem";
+import Form from "./components/Form";
+import { useState, useEffect } from "react";
 
 function App() {
   const [taskList, setTaskList] = useState([]);
@@ -13,45 +13,52 @@ function App() {
   // ... we can do array destructuring instead:
   const [isVisible, setIsVisible] = useState(true);
   const [newPost, setNewPost] = useState(false);
+  const [error, setError] = useState(null);
 
-  async function addTask(task) {    
-    const response = await fetch('http://localhost:3000/todos', {
-      method: 'POST',
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(task)
-    })
+  async function addTask(task) {
+    const response = await fetch("http://localhost:3000/todos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task),
+    });
     setNewPost(true);
   }
 
-  async function fetchTasks() {
-    const response = await fetch('http://localhost:3000/todos')
-    const data = await response.json();
-    setTaskList(data);
-  }
-
-  useEffect( () => {
+  useEffect(() => {
+    async function fetchTasks() {
+      try {
+        setError(null);
+        const response = await fetch("http://localhost:3000/todo");
+        if (!response.ok) {
+          throw new Error("unexpected error fetching data")
+        }
+        const data = await response.json();
+        setTaskList(data);
+      } catch (err) {
+        console.log(err.message);
+        setError(err.message);
+      }
+    }
     fetchTasks();
     setNewPost(false);
-  }, [newPost])
+  }, [newPost]);
 
   return (
     <>
       <button onClick={() => setIsVisible(!isVisible)}>
         {isVisible ? "Hide task list" : "Show task list"}
       </button>
-      {
-        isVisible && (
-          <ol>
-            {
-              taskList.map(task => <ListItem key={task.id} task={task} />)
-            }
-          </ol>
-        )
-      }
-      <Form addTask={addTask}/>
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {isVisible && (
+        <ol>
+          {taskList.map((task) => (
+            <ListItem key={task.id} task={task} />
+          ))}
+        </ol>
+      )}
+      <Form addTask={addTask} />
     </>
-  )
-
+  );
 }
 
-export default App
+export default App;
